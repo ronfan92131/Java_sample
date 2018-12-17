@@ -1,0 +1,54 @@
+import java.util.*;
+class ParenthesesChecker{
+
+    public static void main(String []argh)
+    {
+
+
+            String input= "[](){{{((()))}}}";
+
+            Stack<Byte> stack = new Stack<>();
+            for(int i=0; i<input.length(); i++){
+
+                byte curr = (byte)input.charAt(i);
+                byte prev = ' ';
+                if(!stack.empty()){
+                    prev = stack.peek().byteValue();
+                }
+
+                if (isParentheses(curr)){
+                    if(isMatch(prev, curr)){
+                        stack.pop();
+                    }else{
+                        stack.add(curr);
+                    }
+                }
+            }
+            if (stack.empty()){
+                System.out.printf("true\n");
+            }else{
+                System.out.printf("false\n");
+            }
+        }
+
+
+    public static boolean isMatch(byte pre, byte curr){
+        boolean b = false;
+
+        if ( (pre == '(') && (curr == ')') ||  (pre == '[') && (curr == ']')  || (pre == '{') && (curr == '}')  ){
+            b = true;
+        }
+
+        return b;
+    }
+
+    public static boolean isParentheses(byte b){
+        if (b == '(' || b == ')' || b == '[' ||b == ']' ||b == '{' ||b == '}' )
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+}
