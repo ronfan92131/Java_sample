@@ -1,5 +1,5 @@
 // A complete working Java program to demonstrate all insertion methods
-// on linked list
+// on linkedlist
 // reference: https://www.geeksforgeeks.org/linked-list-set-2-inserting-a-node/
 
 class LinkedList
