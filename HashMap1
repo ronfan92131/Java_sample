@@ -53,9 +53,8 @@ public class HashMap1 {
 
         //print hmSorted,
         // if key is string, treemap key order will be alphabetical
-        // if key is integer, treemap key order sequential, but if two subjects have the same score,
-        // the firt subject will be replaced by the second subject. hence be careful to use integer as key,
-        // if duplciate score, some info will be misssed!
+        // if key is integer, treemap key order sequential. be careful to use integer as key,
+        // if duplciate, previous data will be dropped!
         for (String key : tm.keySet()){
             System.out.println( key  + "  :   " + tm.get(key));
         }
