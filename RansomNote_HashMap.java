@@ -50,11 +50,8 @@ public class Solution {
         String[] mn = scanner.nextLine().split(" ");
 
         int m = Integer.parseInt(mn[0]);
-
         int n = Integer.parseInt(mn[1]);
-
         String[] magazine = new String[m];
-
         String[] magazineItems = scanner.nextLine().split(" ");
         scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
