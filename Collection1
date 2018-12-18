@@ -1,0 +1,68 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+public class Collection1 {
+
+
+    public static void main(String[] args) {
+
+
+        ArrayList<Student> arr = new ArrayList<>();
+        arr.add(new Student(141, "Banbu", "fan", 9));
+        arr.add(new Student(131, "Val", "Fan", 99));
+        arr.add(new Student(151, "David", "Clark", 160));
+        arr.add(new Student(101, "Ron", "Fan", 145));
+        arr.add(new Student(111, "Angie", "Bi", 125));
+
+        int size = arr.size();
+        for (int i=0; i<size; i++){
+            System.out.printf("Before:          "  + "  First Name: " + arr.get(i).firstName + "        score:  " + arr.get(i).score + "\n");
+        }
+
+
+        Collections.sort(arr, new SortScore());
+        for (int i=0; i<size; i++){
+            System.out.printf("SortScore:       "  + "  First Name: " + arr.get(i).firstName + "        score:  " + arr.get(i).score + "\n");
+        }
+
+        Collections.sort(arr, new SortFirstName());
+        for (int i=0; i<size; i++){
+            System.out.printf("SortFirstName:   "  + "  First Name: " + arr.get(i).firstName + "        score:  " + arr.get(i).score + "\n");
+        }
+
+    }
+
+}
+
+class SortID implements Comparator<Student>{
+        public int compare(Student a, Student b){
+            return a.studentID - b.studentID;
+        }
+}
+
+class SortScore implements Comparator<Student>{
+    public int compare(Student a, Student b){
+        return a.score - b.score;
+    }
+}
+
+class SortFirstName implements Comparator<Student>{
+        public int compare(Student a, Student b){
+            return (a.firstName.compareTo(b.firstName));
+        }
+}
+
+class Student {
+        int studentID;
+        String firstName;
+        String lastName;
+        int score;
+
+        public Student(int id, String firstName, String lastName, int score) {
+            this.studentID = id;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.score = score;
+        }
+}
