@@ -1,0 +1,126 @@
+import java.util.*;
+import java.io.*;
+
+class Node {
+    Node left;
+    Node right;
+    int data;
+
+    Node(int data) {
+        this.data = data;
+        left = null;
+        right = null;
+    }
+}
+
+class Tree1 {
+
+    public static int height(Node root) {
+        // Write your code here.
+        //boudary
+        if((root == null)) {return 0;}
+
+        // get left,
+        int left = 0;
+        if(root.left != null){
+            left = 1+ height(root.left);
+        }
+        //get right
+        int right = 0;
+        if (root.right != null) {
+            right = 1 + height(root.right);
+        }
+        //max
+        int max = right;
+        if (left > right){max = left;}
+        return max;
+    }
+
+    public static Node insert(Node root, int data) {
+        if(root == null) {
+            return new Node(data);
+        } else {
+            Node cur;
+            if(data <= root.data) {
+                cur = insert(root.left, data);
+                root.left = cur;
+            } else {
+                cur = insert(root.right, data);
+                root.right = cur;
+            }
+            return root;
+        }
+    }
+
+    public static Node lca(Node root, int v1, int v2) {
+        // Write your code here.
+        //1. find path root to V1, put in stack1
+        Stack<Node> stack1 = new Stack();
+        if (!hasPath(root, stack1, v1))
+        {
+            return null;
+        }
+        //2. find path root to V2, put in stack2
+        Stack<Node> stack2 = new Stack();
+        if (!hasPath(root, stack2, v2)) {
+            return null;
+        }
+        //3. root at the bottom of stack, reverse, so to move root at the top of the stsck
+        Stack<Node> stack1r = new Stack();
+        stack1r = reverseStack(stack1);
+        Stack<Node> stack2r = new Stack();
+        stack2r = reverseStack(stack2);
+        //4. pop V1 and V2, find the last common one, that's the acestor of V1 and V2
+        Node pk1 = stack1r.pop();
+        Node pk2 = stack2r.pop();
+        Node lc = pk1;  // for the lca
+        while (pk1 == pk2)
+        {
+            lc = pk1;
+            if(!stack1r.empty()){pk1 = stack1r.pop();}
+            if(!stack2r.empty()){pk2 = stack2r.pop();}
+        }
+
+        return lc;
+    }
+
+    public static Stack<Node>  reverseStack(Stack<Node>stack){
+        Stack<Node> temp = new Stack();
+
+        while(!stack.empty()){
+            Node n = stack.pop();
+            temp.push(n);
+        }
+        return temp;
+    }
+
+    public static boolean hasPath(Node root, Stack<Node> stack, int v){
+        if (root == null){return false;}
+        stack.add(root);
+        if(root.data == v){ return true;}
+
+        if (hasPath(root.left, stack, v)){
+            return true;
+        }else if ( hasPath(root.right, stack, v)){
+            return true;
+        }
+        stack.pop();
+        return false;
+    }
+
+    public static void main(String[] args) {
+
+        Node root = null;
+
+        int[] data = {1,2};
+        for (int i=0; i< data.length; i++){
+            root = insert(root, data[i]);
+        }
+
+        //get the least common accestor lca
+        int v1 = 1;
+        int v2 = 2;
+        Node ans = lca(root,v1,v2);
+        System.out.println(ans.data);
+    }
+}
