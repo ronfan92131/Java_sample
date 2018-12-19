@@ -46,8 +46,9 @@ public class String101 {
         print(str.concat(str2));
 
         //string reversal
-        String name = "Valerie";
+        String name = "Hello!";
         print(reversal(name));
+        print(reversal_recursive(name);
 
         print(isPalindrome(name));
         name = "hallah";
@@ -72,6 +73,12 @@ public class String101 {
           rev = rev + str.charAt(i);
       }
       return rev;
+    }
+    
+    public  static String reversal_recursive(String str){
+        // do with substring recursively 
+        if (str.length() <= 1){return str;}
+        return reversal_recursive(str.substring(1, (str.length()))) + str.charAt(0);
     }
     
     // String char manipulation: 
