@@ -10,7 +10,7 @@ import java.util.regex.*;
 
 public class Solution {
 
-    // Complete the checkMagazine function below.
+    // Complete the checkMagazine function.
     static void checkMagazine(String[] magazine, String[] note) {
         HashMap<String, Integer> hmMagzine = new HashMap<>();
         for (int i = 0; i < magazine.length; i++){
