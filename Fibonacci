@@ -1,68 +1,41 @@
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
-class Node {
-    Node left;
-    Node right;
-    int data;
+/*
+fibo directly big-O: O(2^n), my mac can't handle when n>50
+fibo with memo, big-O: O(N), blinking fast even n = 100
 
-    Node(int data) {
-        this.data = data;
-        left = null;
-        right = null;
-    }
-}
+so, this is a bog concern, particularly when recursive.
+a little bit of memory (to save the intermiteetn result in an array) trade foa huge time performance gain
+ */
 
-class Tree1 {
+class Fibonacci {
+    public static void main(String[] args) throws IOException {
 
-    public static int height(Node root) {
-        // Write your code here.
-        //boudary
-        if((root == null)) {return 0;}
+        int n = 30;
+        long[] arr = new long[n+1];
+        //System.out.printf("n: " + n + " fib: " + fib(n) + "\n");
+        System.out.printf("n: " + n + " fib_memo: " + fib_memo(n, arr) + "\n");
 
-        // get left,
-        int left = 0;
-        if(root.left != null){
-            left = 1+ height(root.left);
-        }
-        //get right
-        int right = 0;
-        if (root.right != null) {
-            right = 1 + height(root.right);
-        }
-        //max
-        int max = right;
-        if (left > right){max = left;}
-        return max;
     }
 
-    public static Node insert(Node root, int data) {
-        if(root == null) {
-            return new Node(data);
-        } else {
-            Node cur;
-            if(data <= root.data) {
-                cur = insert(root.left, data);
-                root.left = cur;
-            } else {
-                cur = insert(root.right, data);
-                root.right = cur;
-            }
-            return root;
-        }
+    static long fib(int n){
+        int r = 0;
+        if (n == 0){return 0;}
+        if (n == 1){return 1;}
+
+        return fib(n-1) + fib(n-2);
     }
 
-    public static void main(String[] args) {
+    static long fib_memo(int n, long[] arr){
 
-        Node root = null;
+        if (n == 0){return 0;}
+        if (n == 1){return 1;}
 
-        int[] data = {3,2,1,4,6,5,7};
-        for (int i=0; i< data.length; i++){
-            root = insert(root, data[i]);
-        }
+        if(arr[n] != 0){return arr[n];}
+        arr[n] = fib_memo(n-1, arr) + fib_memo(n-2, arr);
 
-        //get height
-        int height = height(root);
-        System.out.println(height);
+        return arr[n];
     }
+
 }
