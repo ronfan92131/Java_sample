@@ -49,6 +49,10 @@ public class String101 {
         String name = "Valerie";
         print(reversal(name));
 
+        print(isPalindrome(name));
+        name = "hallah";
+        print(isPalindrome(name));
+        
     }
 
     static void print(String s){
@@ -68,5 +72,17 @@ public class String101 {
           rev = rev + str.charAt(i);
       }
       return rev;
+    }
+    
+    // String char manipulation: 
+    // key takeaway: str.chatAt!!!
+    static boolean isPalindrome(String s){
+        int len = s.length();
+        for (int i = 0; i < (int) len / 2; i++) {
+            if (s.charAt(i)!= (s.charAt(len-1-i))){
+                return false;
+            }
+        }
+        return true;
     }
 }
