@@ -1,0 +1,72 @@
+public class String101 {
+
+    public static void main(String[] args) {
+
+        String str = "Life360 is such a nice app!";
+        String str2 = "what a wonderful world!";
+
+        print(str.length());
+
+        print(str.charAt(5));
+
+        print(str.indexOf('i'));
+
+        print(str.indexOf('i', 5));  //the 2nd char
+
+        print(str.indexOf("360"));
+
+        print(str.indexOf("300"));  //-1
+
+        print(str.equals(str2));  //false
+
+        print(str.substring(str.indexOf('a')));
+
+        print(str.replace('a', 'A'));
+
+        print(str.replace("app", "application"));
+
+        //trim
+        String s = "     12-20-2018    ";
+        print(s.trim());
+
+        //replace
+        String str3 = "12-21-2019";
+        print(str3.replace('-', '/'));
+
+        //replace one char at specific position ? no way...
+        //print(str3.);
+
+        //split into String[]
+        String[] arr = str.split(" ");
+        for (int i = 0; i < arr.length; i++){
+            print(arr[i]);
+        }
+
+        //concat
+        print(str.concat(str2));
+
+        //string reversal
+        String name = "Valerie";
+        print(reversal(name));
+
+    }
+
+    static void print(String s){
+        System.out.printf(s + "\n");
+    }
+    static void print(int in){
+        System.out.printf(in + "\n");
+    }
+    static void print(boolean b){
+        System.out.printf(b + "\n");
+    }
+
+    public  static String reversal(String str){
+      // do with another str, 
+      String rev = "";
+      for (int i = str.length() - 1; i >= 0; i--){
+          rev = rev + str.charAt(i);
+      }
+      return rev;
+    }
+}
