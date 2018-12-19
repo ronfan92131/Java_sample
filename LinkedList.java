@@ -92,6 +92,37 @@ class LinkedList
         }
     }
 
+    //print linkedlist, reverse order, tail to head, with a stack
+    static void reversePrint(SinglyLinkedListNode head) {
+        if(head == null){return;}
+
+        Stack<Integer> stack = new Stack<>();
+        SinglyLinkedListNode curr = head;
+        stack.push(curr.data);
+        while(curr.next != null){
+            curr = curr.next;
+            stack.add(curr.data);   
+        } 
+        //pop and print
+        while (!stack.isEmpty()){
+            System.out.printf(stack.pop() + "\n");
+        }
+
+/*
+        Stack<SinglyLinkedListNode> stack = new Stack<>();
+        SinglyLinkedListNode curr = head;
+        stack.push(curr);
+        while(curr.next != null){
+            curr = curr.next;
+            stack.add(curr);   
+        } 
+        //pop and print
+        while (!stack.isEmpty()){
+            System.out.printf(stack.pop().data + "\n");
+        }
+*/
+    }
+    
     /* Driver program to test above functions. Ideally this function
        should be in a separate user class.  It is kept here to keep
        code compact */
