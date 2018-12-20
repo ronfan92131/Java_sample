@@ -1,8 +1,11 @@
 /*
 101.a: node structure, insert , create tree with insert, inOrderTraversal
-
+101.b: hasPath: input, root, node, and an empty stack for node 
+                output: if true, print the path stored in the stack
  */
 
+
+import java.util.Stack;
 
 class Node{
     int data;
@@ -41,6 +44,9 @@ class Tree101 {
     public static void print(int data){
         System.out.printf(data + " ");
     }
+    public static void print(String data){
+        System.out.printf(data + " ");
+    }
 
     public static Node createTree(){
         Node root = null;
@@ -49,15 +55,45 @@ class Tree101 {
         root = insert(root, 1);
         root = insert(root, 14);
         root = insert(root, 7);
-        root = insert(root, 6);
+        root = insert(root, 20);
 
         return root;
+    }
+
+    public static boolean hasPath(Node root, Node dest, Stack<Node> stack){
+
+        if (root == null){return false;}
+        stack.add(root);
+        if(root.data == dest.data){ return true;}
+
+        if (hasPath(root.left, dest, stack)){
+            return true;
+        }else if ( hasPath(root.right, dest, stack)){
+            return true;
+        }
+        stack.pop();
+        return false;
+
     }
 
     public static void main(String[] args) {
 
         Node root = createTree();
 
-        inOrderTraversal(root);
+        //inOrderTraversal(root);
+
+
+        // hasPath:
+        // input, root, node, and an empty stack for node
+        // output: if true, print the path stored in the stack
+        Node dest = new Node(1);
+        Stack<Node> stack = new Stack<>();
+        if (hasPath(root, dest, stack )){
+           while (!stack.empty()){
+               print(stack.pop().data);
+           }
+        }else{
+            print("no valid path");
+        }
     }
 }
