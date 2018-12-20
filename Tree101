@@ -3,7 +3,7 @@
 101.b: hasPath: input, root, node, and an empty stack for node
                 output: if true, print the path stored in the stack
 101.c  getHeight
-
+101.d  give any two nodes, find the lowest common ancestor (LCA) 
  */
 
 
@@ -89,18 +89,58 @@ class Tree101 {
         return max;
     }
 
+    public static Node lca(Node root, Node n1, Node n2) {
+        //1. Write your code here.
+        if (root == null) {return null;}
+
+        //2. find path root to V1, put in stack1
+        Stack<Node> stack1 = new Stack();
+        Stack<Node> stack2 = new Stack();
+        if (!hasPath(root, n1, stack1) || !hasPath(root, n2, stack2))
+        {
+            return null;
+        }
+
+        //3. root at the bottom of stacks, reverse, so to move root at the top of the stsck
+        Stack<Node> stack1r = reverseStack(stack1);
+        Stack<Node> stack2r = reverseStack(stack2);
+
+        //4. pop n1 and n2, find the last common one, that's the ancestor of n1 and n2
+        Node pk1 = stack1r.pop();
+        Node pk2 = stack2r.pop();
+        Node lc = pk1;  // for the lca
+        while (pk1 == pk2)
+        {
+            lc = pk1;
+            if(!stack1r.empty()){pk1 = stack1r.pop();}
+            if(!stack2r.empty()){pk2 = stack2r.pop();}
+        }
+
+        return lc;
+    }
+
+    public static Stack<Node>  reverseStack(Stack<Node>stack){
+        Stack<Node> temp = new Stack();
+
+        while(!stack.empty()){
+            Node n = stack.pop();
+            temp.push(n);
+        }
+        return temp;
+    }
+
     public static void main(String[] args) {
 
         Node root = createTree();
 
         //inOrderTraversal(root);
 
-        print("\ngetHeight = " + getHeight(root) + "\n");
+      //  print("\ngetHeight = " + getHeight(root) + "\n");
 
         // hasPath:
         // input, root, node, and an empty stack for node
         // output: if true, print the path stored in the stack
-        Node dest = new Node(1);
+    /*    Node dest = new Node(1);
         Stack<Node> stack = new Stack<>();
         if (hasPath(root, dest, stack )){
            while (!stack.empty()){
@@ -108,6 +148,16 @@ class Tree101 {
            }
         }else{
             print("no valid path");
+        }  */
+
+        //get the least common accestor lca
+        Node n1 = new Node(20);
+        Node n2 = new Node (3);
+        Node ans = lca(root,n1,n2);
+        if(ans!=null) {
+            System.out.println(ans.data);
+        }else{
+            print("no valid lca");
         }
     }
 
