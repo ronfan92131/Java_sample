@@ -1,7 +1,9 @@
-/*
+/* Tree101
 101.a: node structure, insert , create tree with insert, inOrderTraversal
-101.b: hasPath: input, root, node, and an empty stack for node 
+101.b: hasPath: input, root, node, and an empty stack for node
                 output: if true, print the path stored in the stack
+101.c  getHeight
+
  */
 
 
@@ -48,17 +50,7 @@ class Tree101 {
         System.out.printf(data + " ");
     }
 
-    public static Node createTree(){
-        Node root = null;
-        root = insert(root, 5);
-        root = insert(root, 3);
-        root = insert(root, 1);
-        root = insert(root, 14);
-        root = insert(root, 7);
-        root = insert(root, 20);
 
-        return root;
-    }
 
     public static boolean hasPath(Node root, Node dest, Stack<Node> stack){
 
@@ -76,12 +68,34 @@ class Tree101 {
 
     }
 
+    public static int getHeight(Node root) {
+        // Write your code here.
+        //boudary
+        if((root == null)) {return 0;}
+
+        // get left,
+        int left = 0;
+        if(root.left != null){
+            left = 1+ getHeight(root.left);
+        }
+        //get right
+        int right = 0;
+        if (root.right != null) {
+            right = 1 + getHeight(root.right);
+        }
+        //max
+        int max = right;
+        if (left > right){max = left;}
+        return max;
+    }
+
     public static void main(String[] args) {
 
         Node root = createTree();
 
         //inOrderTraversal(root);
 
+        print("\ngetHeight = " + getHeight(root) + "\n");
 
         // hasPath:
         // input, root, node, and an empty stack for node
@@ -95,5 +109,17 @@ class Tree101 {
         }else{
             print("no valid path");
         }
+    }
+
+    public static Node createTree(){
+        Node root = null;
+        root = insert(root, 5);
+        root = insert(root, 3);
+        root = insert(root, 1);
+        root = insert(root, 14);
+        root = insert(root, 7);
+        root = insert(root, 20);
+
+        return root;
     }
 }
