@@ -1,6 +1,5 @@
-// A complete working Java program to demonstrate all insertion methods
-// on linkedlist
-// reference: https://www.geeksforgeeks.org/linked-list-set-2-inserting-a-node/
+import java.util.ArrayList;
+import java.util.List;
 
 class LinkedList
 {
@@ -80,9 +79,40 @@ class LinkedList
         return;
     }
 
+    /*
+     * For your reference:
+     *
+     * SinglyLinkedListNode {
+     *     int data;
+     *     SinglyLinkedListNode next;
+     * }
+     *
+     */
+    static Node reverse(Node head) {
+        // plan:
+        // define three node to keep track, prev, curr, fwd
+        // at start, curr = head, prev = null
+        // if curr.next valid, fwd step forward; then curr point to prev;
+        //        then prev step to curr; curr step to fwd
+        // loop until curr.next is null, wire back to prev, move head to curr
+        Node prev, curr, fwd;
+
+        prev = null;
+        curr = head;
+        while (curr.next != null){
+            fwd = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = fwd;
+        }
+        curr.next = prev;
+        head = curr;
+        return head;
+    }
+
     /* This function prints contents of linked list starting from
         the given node */
-    public void printList()
+    public static void printList(Node head)
     {
         Node tnode = head;
         while (tnode != null)
@@ -92,37 +122,6 @@ class LinkedList
         }
     }
 
-    //print linkedlist, reverse order, tail to head, with a stack
-    static void reversePrint(SinglyLinkedListNode head) {
-        if(head == null){return;}
-
-        Stack<Integer> stack = new Stack<>();
-        SinglyLinkedListNode curr = head;
-        stack.push(curr.data);
-        while(curr.next != null){
-            curr = curr.next;
-            stack.add(curr.data);   
-        } 
-        //pop and print
-        while (!stack.isEmpty()){
-            System.out.printf(stack.pop() + "\n");
-        }
-
-/*
-        Stack<SinglyLinkedListNode> stack = new Stack<>();
-        SinglyLinkedListNode curr = head;
-        stack.push(curr);
-        while(curr.next != null){
-            curr = curr.next;
-            stack.add(curr);   
-        } 
-        //pop and print
-        while (!stack.isEmpty()){
-            System.out.printf(stack.pop().data + "\n");
-        }
-*/
-    }
-    
     /* Driver program to test above functions. Ideally this function
        should be in a separate user class.  It is kept here to keep
        code compact */
@@ -130,27 +129,47 @@ class LinkedList
     {
         /* Start with the empty list */
         LinkedList llist = new LinkedList();
-
         // Insert 6.  So linked list becomes 6->NUllist
         llist.append(6);
-
         // Insert 7 at the beginning. So linked list becomes
         // 7->6->NUllist
         llist.push(7);
-
         // Insert 1 at the beginning. So linked list becomes
         // 1->7->6->NUllist
         llist.push(1);
-
         // Insert 4 at the end. So linked list becomes
         // 1->7->6->4->NUllist
         llist.append(4);
-
         // Insert 8, after 7. So linked list becomes
         // 1->7->8->6->4->NUllist
         llist.insertAfter(llist.head.next, 8);
-
+        
         System.out.println("\nCreated Linked list is: ");
-        llist.printList();
+        printList(llist.head);
+
+        System.out.println("\n Linked list reversal:  ");
+        Node llist1 = reverse(llist.head);
+        printList(llist1);
+        
+        // Can we create an ArrayList just like a linked list? 
+        List<Integer> arrlist = new ArrayList<>();
+        // add 6.  So arrlist.toString(): [6]
+        arrlist.add(6);
+        // add 7 at the beginning.  So arrlist.toString(): [7, 6]
+        arrlist.add(0, 7);
+        // add 1 at the beginning.  So arrlist.toString(): [1, 7, 6]
+        arrlist.add(0, 1);
+        // "append" 4 at the end  So arrlist.toString(): [1, 7, 6, 4]
+        int size = arrlist.size();
+        arrlist.add(size, 4);
+        // insert 8 after 7   So arrlist.toString(): [1, 7, 8, 6, 4]
+        int position = arrlist.indexOf(7);
+        arrlist.add(position+1, 8);
+
+        System.out.println("\nCreated Array list is: " );
+        System.out.printf(arrlist.toString());
+
+        // can we do array list reversal? what a joke :)
     }
+    
 }
