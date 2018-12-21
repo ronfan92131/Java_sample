@@ -1,0 +1,60 @@
+import java.util.*;
+class Stack101 {
+
+    public static void main(String []argh)
+    {
+
+        String input= "[])(t";
+
+        if (is_All_Matched(input)){
+            System.out.printf("all matched\n");
+        }else{
+            System.out.printf("not matched\n");
+        }
+    }
+
+
+    // input: a string.
+    // output:  if all matching brackets, return true
+    // solution: identify all brackets, use a stack to match up
+    public static boolean is_All_Matched(String input){
+
+        Stack<Byte> stack = new Stack<>();
+        for(int i=0; i<input.length(); i++){
+            byte curr = (byte)input.charAt(i);
+            byte prev = ' ';
+            if(!stack.empty()){
+                prev = stack.peek().byteValue();
+            }
+
+            if (is_a_Parentheses(curr)){
+                if(is_a_Matching_Pair(prev, curr)){
+                    stack.pop();
+                }else{
+                    stack.add(curr);
+                }
+            }
+        }
+        return stack.empty();
+    }
+
+    public static boolean is_a_Matching_Pair(byte left, byte right){
+        boolean b = false;
+
+        if ( (left == '(') && (right == ')') ||  (left == '[') && (right == ']')  || ( left == '{') && (right == '}')  ){
+            b = true;
+        }
+
+        return b;
+    }
+
+    public static boolean is_a_Parentheses(byte b){
+        if (b == '(' || b == ')' || b == '[' ||b == ']' ||b == '{' ||b == '}' )
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+}
