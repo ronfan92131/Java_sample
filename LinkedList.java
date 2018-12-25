@@ -122,6 +122,31 @@ class LinkedList
         }
     }
 
+    public static boolean compareList(Node current, Node current2){
+        boolean ret = false;
+
+        while (current.data == current2.data){
+            if (current.next  !=  null ) {
+                current = current.next;
+            }else{
+                break;
+            }
+            if (current2.next != null) {
+                current2 = current2.next;
+            }else{
+                break;
+            }
+        }
+
+        //reach here, if both at the tail and equal, return true
+        if ((current.next  ==  null ) && (current2.next  ==  null ) && (current.data == current2.data) )
+        {
+            ret = true;
+        }
+
+        return ret;
+    }
+
     /* Driver program to test above functions. Ideally this function
        should be in a separate user class.  It is kept here to keep
        code compact */
@@ -143,15 +168,25 @@ class LinkedList
         // Insert 8, after 7. So linked list becomes
         // 1->7->8->6->4->NUllist
         llist.insertAfter(llist.head.next, 8);
-        
+
         System.out.println("\nCreated Linked list is: ");
         printList(llist.head);
 
-        System.out.println("\n Linked list reversal:  ");
+        LinkedList llist2 = new LinkedList();
+        llist2.push(4);
+        llist2.push(6);
+        llist2.push(8);
+        llist2.push(7);
+        llist2.push(1);
+
+        boolean compare = compareList(llist.head, llist2.head);
+        System.out.printf("\ncompre result = " + compare + "\n");
+
+    /*    System.out.println("\n Linked list reversal:  ");
         Node llist1 = reverse(llist.head);
         printList(llist1);
-        
-        // Can we create an ArrayList just like a linked list? 
+
+        // Can we create an ArrayList just like a linked list?
         List<Integer> arrlist = new ArrayList<>();
         // add 6.  So arrlist.toString(): [6]
         arrlist.add(6);
@@ -170,6 +205,7 @@ class LinkedList
         System.out.printf(arrlist.toString());
 
         // can we do array list reversal? what a joke :)
+        */
     }
-    
+
 }
