@@ -56,13 +56,28 @@ public class ConnectedCell {
     }
 
     public static void main(String[] args) throws IOException {
-        int n = 4;
-        int m = 4;
 
+/*
         int grid[][] = {    { 0, 1, 0, 0, 0, 1 },
                             { 0, 1, 0, 1, 0, 1 },
                             { 1, 0, 0, 1, 0, 0 },
                             { 1, 0, 0, 0, 0, 0 }};
+*/
+
+        int rows = 4;
+        int cols = 6;
+        int grid[][] = new int[rows][cols];
+
+        File file = new File("/Users/fans/IdeaProjects/HackerRank/src/grid.txt");
+        Scanner sc = new Scanner(file);
+
+        for (int row = 0; row < rows; row++){
+            String line =  sc.nextLine();
+            String[] tokens = line.split(",");
+            for (int col = 0; col < cols; col++){
+                grid[row][col] = Integer.parseInt(tokens[col].trim());
+            }
+        }
 
         int res = maxRegion(grid);
         System.out.print(res + "\n");
