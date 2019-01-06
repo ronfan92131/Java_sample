@@ -1,0 +1,71 @@
+/* hackerrank ref: https://www.hackerrank.com/challenges/ctci-connected-cell-in-a-grid/problem?h_r=internal-search
+Consider a matrix where each cell contains either a  or a  and any cell containing a  is called a filled cell.
+Two cells are said to be connected if they are adjacent to each other horizontally, vertically, or diagonally.
+In the diagram below, the two colored regions show cells connected to the filled cells. Black on white are
+not connected.
+For example:
+        int grid[][] = { { 0, 1, 0, 0, 0, 1 },
+                         { 0, 1, 0, 1, 0, 1 },
+                         { 1, 0, 0, 0, 0, 0 },
+                         { 1, 0, 0, 0, 0, 0 }};
+        max connected cells  = 4
+*/
+import java.io.*;
+
+public class ConnectedCell {
+
+    // Complete the maxRegion function below.
+    static int maxRegion(int[][] grid) {
+        int max = 0;
+
+        for (int row = 0; row < grid.length; row++){
+            for (int col = 0; col < grid[0].length; col++) {
+                if (grid[row][col] == 1){
+                    int connectedCells = getRegionCells(grid, row, col);
+                    System.out.print( " row: " +  row + " col: " + col + " cells:  " + connectedCells + "\n");
+                    if (max < connectedCells) { max = connectedCells;}
+                }
+            }
+        }
+        return max;
+    }
+
+
+    static int getRegionCells(int[][] grid, int row, int col){
+        //boundary condition
+        if (row < 0 || row >= grid.length || col < 0 || col >= grid[0].length ){
+            return 0;
+        }
+        if (grid[row][col] == 0) {
+            return 0;
+        }
+        grid[row][col] = 0;   //don't keep counting the self.
+
+        int regionCells = 1;
+        for (int r = row - 1; r <= row + 1; r++){
+           for (int c = col - 1; c <= col + 1; c++){
+                if (r == row && c == col){
+                    continue;
+                }else {
+                    regionCells += getRegionCells(grid, r, c);
+                }
+            }
+        }
+
+        return regionCells;
+    }
+
+    public static void main(String[] args) throws IOException {
+        int n = 4;
+        int m = 4;
+
+        int grid[][] = {    { 0, 1, 0, 0, 0, 1 },
+                            { 0, 1, 0, 1, 0, 1 },
+                            { 1, 0, 0, 1, 0, 0 },
+                            { 1, 0, 0, 0, 0, 0 }};
+
+        int res = maxRegion(grid);
+        System.out.print(res + "\n");
+    }
+}
+
