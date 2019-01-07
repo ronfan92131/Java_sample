@@ -1,0 +1,74 @@
+package com.doyen.fans;
+
+
+// ref:  https://www.hackerrank.com/challenges/save-humanity/problem
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class SaveHumanity {
+
+    /*
+     * Complete the virusIndices function below.
+     */
+    static void virusIndices(String p, String v) {
+        /*
+         * Print the answer for this test case in a single line
+         */
+         // let's do the easy one: exact matches
+        int p_len = p.length();
+        int v_len = v.length();
+
+        int[] matchStart = new int[p_len];
+        int match = 0 ;
+
+        for (int i = 0; i <= (p.length() - v_len); i++){
+            String subStr = p.substring(i, i + v_len);
+            if (isMatch(subStr, v)){
+                matchStart[match++] = i;
+            }
+        }
+
+        if (match == 0) {
+            System.out.printf("No Match!\n");
+        }else {
+            for ( int j = 0; j < match; j++){
+                System.out.printf(matchStart[j] + " ");
+            }
+            System.out.printf("\n");
+        }
+    }
+
+    static boolean isMatch(String sub, String v){
+      int miss = 0;
+      for (int i = 0; i < sub.length(); i++){
+          if (sub.charAt(i) != v.charAt(i)){
+              miss += 1;
+          }
+      }
+      return miss < 2 ? true : false;
+    }
+    
+    public static void main(String[] args) throws FileNotFoundException {
+
+        String path = "/Users/fans/IdeaProjects/java_tutorial/src/com/doyen/fans/";
+        String fileName = path + "DNA.txt";
+
+        File file = new File(fileName);
+        Scanner scanner = new Scanner(file);
+
+        int t = Integer.parseInt(scanner.nextLine().trim());
+
+        for (int tItr = 0; tItr < t; tItr++) {
+            String[] pv = scanner.nextLine().split(" ");
+
+            String p = pv[0];
+
+            String v = pv[1];
+
+            virusIndices(p, v);
+        }
+    }
+
+}
