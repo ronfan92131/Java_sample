@@ -1,0 +1,66 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Anagrams {
+
+    public static void main(String[] args) {
+
+        String a = "anagramm";
+        String b = "naagramm";
+
+        boolean ret = isAnagram(a, b);
+        System.out.println( (ret) ? "Anagrams" : "Not Anagrams" );
+
+        int result = makingAnagram(a, b);
+        System.out.println( result + "\n" );
+    }
+
+    //Question details:  https://www.hackerrank.com/challenges/java-anagrams/problem
+    static boolean isAnagram(String a, String b) {
+        // implementation plan,
+        // 1. convert both strings to lower case,
+        // 2. put strings into int array[26], index 'c' - 'a',
+        // 3. the two int array must be idential, return true
+
+        if (a.length() != b.length()){return false;}
+
+        int[] int_a = new int[26];
+        int[] int_b = new int[26];
+
+        a = a.toLowerCase();
+        b = b.toLowerCase();
+        for (int i = 0; i < a.length(); i++){
+            int_a[a.charAt(i) - 'a'] += 1;
+            int_b[b.charAt(i) - 'a'] += 1;
+        }
+
+        //compare int_a, int_b
+        for (int i = 0; i < int_a.length; i++){
+            if (int_a[i] != int_b[i]){
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    //ref:  https://www.hackerrank.com/challenges/making-anagrams/problem
+    static int makingAnagram(String s1, String s2){
+        int LENGTH = 26;
+        int[] int_s1 = new int[LENGTH];
+        for (int i = 0; i < s1.length(); i++){
+            int_s1[s1.charAt(i) - 'a'] += 1;
+        }
+
+        int[] int_s2 = new int[LENGTH];
+        for (int i = 0; i < s2.length(); i++){
+            int_s2[s2.charAt(i) - 'a'] += 1;
+        }
+
+        //loop thr all 26 chars, diff the accounts and accumulate
+        int sum = 0 ;
+        for (int j = 0; j < LENGTH; j++){
+            sum += Math.abs(int_s1[j] - int_s2[j]);
+        }
+        return sum;
+    }
+}
