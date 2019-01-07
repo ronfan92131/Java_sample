@@ -40,14 +40,16 @@ public class SaveHumanity {
         }
     }
 
+
     static boolean isMatch(String sub, String v){
       int miss = 0;
       for (int i = 0; i < sub.length(); i++){
           if (sub.charAt(i) != v.charAt(i)){
               miss += 1;
+              if (miss > 1) {return false;}
           }
       }
-      return miss < 2 ? true : false;
+      return true;
     }
     
     public static void main(String[] args) throws FileNotFoundException {
