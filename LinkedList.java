@@ -88,27 +88,34 @@ class LinkedList
      * }
      *
      */
-    static Node reverse(Node head) {
-        // plan:
-        // define three node to keep track, prev, curr, fwd
-        // at start, curr = head, prev = null
-        // if curr.next valid, fwd step forward; then curr point to prev;
-        //        then prev step to curr; curr step to fwd
-        // loop until curr.next is null, wire back to prev, move head to curr
-        Node prev, curr, fwd;
 
-        prev = null;
-        curr = head;
-        while (curr.next != null){
-            fwd = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = fwd;
-        }
-        curr.next = prev;
-        head = curr;
-        return head;
-    }
+    private static Node reverseList(Node h) {
+		//plan: 
+		//1. check boundary condition, 
+		//2. use 2 tmp nodes to track, f for forward and b for backward
+		//3. while f not the end, loop through the list: re-wire head backward, advance b, h, f sequentially 
+		//4. when f at the end, re-wire head backward and return 
+		
+		//1. boundary condition
+		if (h == null){ return null;}
+		
+		//2. use 2 tmp tracking nodes: f for forward; b for backward
+		Node f = h.next;
+		Node b = null;
+		
+		//3. while f is not at the end
+		while (f != null) {
+			h.next = b;     //re-wire head backward
+			b = h;          //then advance b,h,f sequentially
+			h = f;           
+			f = h.next;     
+		}
+		
+		//4. when f is at the end, re-wire head backward and return 
+		h.next = b;
+		return h;
+	}
+    
 
     /* This function prints contents of linked list starting from
         the given node */
